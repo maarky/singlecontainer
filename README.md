@@ -10,18 +10,18 @@ Documentation
 
 ### get()
 
-Retrieves the container value. Must throw an exception if the container has no value.
+Retrieves the container value. Must throw a Type error if the container has no value.
 
 ### getOrElse($else)
 
-Retrieves the container value, or $else if the container has no value. Must throw an exception if the 
+Retrieves the container value, or $else if the container has no value. Must throw a Type error if the 
 container has no value and $else is a different type than what the container should have. In other words, 
 if the container is meant to store strings then $else must be a string.
 
 ### getOrCall(callable $call)
 
 Retrieves the container value, or calls $call if the container has no value and returns the result. Must 
-throw an exception if the container has no value and $call returns a different type than what the container 
+throw a Type error if the container has no value and $call returns a different type than what the container 
 should have. In other words, if the container is meant to store strings then $call must return a string.
 
 $call should have signature function(SingleContainer $container): mixed 
