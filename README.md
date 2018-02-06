@@ -5,8 +5,25 @@ SingleContainer is an interface for creating monads. The idea is that you can cr
 that wraps a single value, or no value, and then perform actions on that value and create new monads 
 containing that value or the result of an action performed on that value.
 
+Although it doesn't have to be implemented this way, the idea is that a SingleContainer should expect values of 
+specific types. For example, one type of SingleContainer might only contain strings. This provides type safety, 
+allowing you to apply functions with the confidence that the function is able to operate on the type of value
+stored in the container.
+
 Documentation
 -------------
+
+A number of these methods take callables as their argument. These methods come in two types: those whose container 
+does hold a value, and those whose container holds no value. On those methods which do expect a container to have 
+a value the callable must always take that value as the first argument and they can optionally take the container 
+itself as the second. On those methods which do not expect a container to have a value the callable can optionally 
+take the container as its only value. The reason the container is passed to the callables is because it is possible 
+the container might have additional information. For example, if the container has no value then the callable might
+want to know what type of container is calling it in order to provide context on what it should do.
+
+Methods that expect a container to have a value are map(), flatmap(), filter(), filternot(), and foreach().
+
+Methods that expect a container to have no value are getOrCall(), orCall(), and fornothing().
 
 ### get()
 
