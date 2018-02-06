@@ -1,0 +1,19 @@
+{
+  "name": "maarky/singlecontainer",
+  "description": "Interface for SingleContainer monads",
+  "keywords": ["php","monad"],
+  "type": "library",
+  "license": "Apache2",
+  "authors": [
+    {
+      "name": "Mark Wright",
+      "email": "sparkymeister@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": { "maarky\\": "src/maarky/" }
+  }
+}
