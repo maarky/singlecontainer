@@ -15,11 +15,11 @@ Documentation
 
 A number of these methods take callables as their argument. These methods come in two types: those whose container 
 does hold a value, and those whose container holds no value. On those methods which do expect a container to have 
-a value the callable must always take that value as the first argument and they can optionally take the container 
-itself as the second. On those methods which do not expect a container to have a value the callable can optionally 
-take the container as its only value. The reason the container is passed to the callables is because it is possible 
-the container might have additional information. For example, if the container has no value then the callable might
-want to know what type of container is calling it in order to provide context on what it should do.
+a value the callable must always take that value as the first and only required argument. On those methods which do 
+not expect a container to have a value the callable can optionally take the container as its only argument. The reason 
+the container is passed to the callables is because it is possible the container might have additional information. 
+For example, if the container has no value then the callable might want to know what type of container is calling it 
+in order to provide context on what it should do.
 
 Methods that expect a container to have a value are map(), flatmap(), filter(), filternot(), and foreach().
 
@@ -66,12 +66,12 @@ Returns false if container has value, otherwise true.
 
 ### filter(callable $filter): SingleContainer
 
-Calls filter passing in the container value and the container itself. Returns itself if filter returns true, 
-otherwise an empty container of the same type. If this method is called on an empty container there is nothing 
-to filter so it should ignore $filter and return itself.
+Calls filter passing in the container value. Returns itself if filter returns true, otherwise an empty container of 
+the same type. If this method is called on an empty container there is nothing to filter so it should ignore $filter 
+and return itself.
 
-$filter should have signature function(mixed $var, SingleContainer $container): boolean where $var is the data 
-being stored in the calling SingleContainer and $container is the calling SingleContainer. 
+$filter should have signature function(mixed $var): boolean where $var is the data 
+being stored in the calling SingleContainer. 
 
 ### filterNot(callable $filter): SingleContainer
 
@@ -80,21 +80,21 @@ an empty container.
 
 ### map(callable $map): SingleContainer
 
-If container has a value it should call $map, passing in the value and itself. $map should return a value to be 
+If container has a value it should call $map, passing in the value. $map should return a value to be 
 wrapped inside a SingleContainer. If $map returns a SingleContainer it should be wrapped inside another 
 SingleContainer. If $map returns an empty value it should return an empty SingleContainer. If the calling container 
 has no value it should ignore $map and return itself.
 
-$map should have signature function(mixed $var, SingleContainer $container): mixed where $var is the data being 
-stored in the calling SingleContainer and $container is the calling SingleContainer.
+$map should have signature function(mixed $var): mixed where $var is the data being 
+stored in the calling SingleContainer.
 
 ### flatMap(callable $map): SingleContainer
 
-If container has a value it should call $map, passing in the value and itself. $map must return any type of 
+If container has a value it should call $map, passing in the value. $map must return any type of 
 SingleContainer. If container has no value it should ignore $map and return itself.
 
-$map Should have signature function(mixed $var, SingleContainer $container): SingleContainer where $var is the data 
-being stored in the calling SingleContainer and $container is the calling SingleContainer.
+$map Should have signature function(mixed $var): SingleContainer where $var is the data 
+being stored in the calling SingleContainer.
 
 ### foreach(callable $each): SingleContainer
 
@@ -103,8 +103,8 @@ If container has no value it ignores $each and returns itself.
 
 This method is meant to be used when you want to produce side effects, not when you want to alter the container value.
 
-$each should have signature function(mixed $var, SingleContainer $container): void where $var is the data being 
-stored in the calling SingleContainer, and $container is the calling SingleContainer.
+$each should have signature function(mixed $var): void where $var is the data being 
+stored in the calling SingleContainer.
 
 ### fornothing(callable $nothing): SingleContainer
 
